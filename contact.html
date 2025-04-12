@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - APEX Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+    <style>
+        /* Basic Reset & Body Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif; /* Fallback font */
+            font-family: 'Orbitron', sans-serif; /* Futuristic font */
+            color: #fff;
+            background-color: #0a0a1a; /* Dark blue/purple background */
+            position: relative;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            min-height: 100vh; /* Ensure background covers full height */
+        }
+
+        /* Background Image and Overlay (Using the same as About Us) */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            /* IMPORTANT: Replace 'placeholder-about-background.jpg' with your actual background image */
+            background: url('placeholder-about-background.jpg') no-repeat center center/cover;
+            z-index: -2;
+            opacity: 0.5; /* Adjust opacity */
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(10, 10, 26, 0.6), rgba(10, 10, 26, 1) 70%);
+            z-index: -1;
+        }
+
+
+        /* Header Styling */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #e0e0ff;
+            text-shadow: 0 0 5px #cc00ff, 0 0 10px #cc00ff;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #b0b0ff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s, text-shadow 0.3s;
+        }
+
+         /* Style for the ACTIVE page link */
+        nav ul li a.active,
+        nav ul li a:hover {
+            color: #fff;
+            background-color: rgba(204, 0, 255, 0.3);
+            text-shadow: 0 0 8px #fff;
+        }
+
+         /* Style for the link wrapping the button */
+         header a.button-link {
+             text-decoration: none;
+        }
+
+        .sign-in-btn {
+            padding: 10px 25px;
+            background-color: #8A2BE2;
+            border: 1px solid #cc00ff;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 5px #cc00ff, inset 0 0 5px rgba(255, 255, 255, 0.3);
+            display: inline-block;
+        }
+
+        .sign-in-btn:hover {
+            background-color: #9932CC;
+            box-shadow: 0 0 15px #cc00ff, inset 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Main Content Styling for Contact Page */
+        main {
+            padding: 30px 5%; /* Adjust padding */
+            position: relative;
+            z-index: 5;
+        }
+
+        .main-heading {
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 40px;
+            color: #f0f0ff;
+            text-shadow: 0 0 10px #cc00ff;
+        }
+
+        .contact-content {
+            display: flex;
+            gap: 50px; /* Space between form and details */
+            background-color: rgba(15, 15, 30, 0.5); /* Optional background tint */
+            padding: 40px;
+            border-radius: 10px;
+        }
+
+        /* Contact Form Styling */
+        .contact-form {
+            flex-basis: 50%; /* Form takes half the space */
+            display: flex;
+            flex-wrap: wrap; /* Allow inputs to wrap */
+            gap: 20px; /* Spacing between form elements */
+        }
+
+        .contact-form .input-group {
+            flex-basis: calc(50% - 10px); /* Two inputs per row */
+        }
+
+        .contact-form .full-width {
+            flex-basis: 100%; /* Email and Message take full width */
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #8A2BE2; /* Neon bottom border */
+            padding: 15px 5px; /* Adjust padding */
+            color: #fff; /* Text color */
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .contact-form input[type="text"]:focus,
+        .contact-form input[type="email"]:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-bottom-color: #cc00ff; /* Brighter border on focus */
+        }
+
+        .contact-form textarea {
+            min-height: 120px; /* Set height for message area */
+            resize: vertical; /* Allow vertical resize */
+        }
+
+         /* Style placeholders */
+        .contact-form ::placeholder {
+            color: #a0a0c0; /* Lighter placeholder text */
+            opacity: 1; /* Ensure visibility */
+        }
+
+        .contact-form .submit-btn {
+            padding: 12px 30px;
+            background-color: #fff; /* White background */
+            border: 1px solid #fff;
+            color: #1a1a3a; /* Dark text color */
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+            margin-top: 10px; /* Space above button */
+        }
+
+        .contact-form .submit-btn:hover {
+            background-color: #cc00ff;
+            color: #fff;
+            border-color: #cc00ff;
+            box-shadow: 0 0 10px #cc00ff;
+        }
+
+
+        /* Contact Details Styling */
+        .contact-details {
+            flex-basis: 45%; /* Details take slightly less space */
+            padding-left: 20px; /* Add some space */
+        }
+
+        .contact-details h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #f0f0ff;
+            text-shadow: 0 0 8px #cc00ff;
+        }
+
+        .contact-details p {
+            line-height: 1.6;
+            color: #c0c0f0;
+            margin-bottom: 30px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px; /* Space between icon and text */
+        }
+
+        .contact-method i { /* Style for Font Awesome icons */
+            font-size: 1.8em;
+            color: #8A2BE2; /* Icon color */
+            width: 30px; /* Fixed width for alignment */
+            text-align: center;
+        }
+         /* If using img for icons:
+         .contact-method img {
+            width: 30px;
+            height: 30px;
+        } */
+
+        .contact-method div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-method span {
+            font-weight: bold;
+            color: #e0e0ff;
+            font-size: 1.1em;
+        }
+
+        .contact-method a,
+        .contact-method .detail { /* Style for links and plain text details */
+            color: #b0b0ff;
+            text-decoration: none;
+            font-size: 0.95em;
+            word-break: break-all; /* Prevent long emails/links overflowing */
+        }
+         .contact-method a:hover {
+            color: #cc00ff;
+         }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) { /* Adjust breakpoint if needed */
+             .contact-content {
+                flex-direction: column; /* Stack form and details */
+                padding: 30px;
+            }
+            .contact-details {
+                 padding-left: 0;
+                 margin-top: 40px; /* Add space when stacked */
+             }
+             .contact-form .input-group {
+                 flex-basis: 100%; /* Each input takes full width */
+             }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+            }
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+            }
+            nav ul li {
+                margin: 0 10px;
+            }
+            header a.button-link {
+                 margin-top: 10px;
+            }
+            .main-heading {
+                font-size: 2.5em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="background-image"></div>
+    <div class="overlay"></div>
+
+    <header>
+        <div class="logo">APEX Games</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html" class="active">Contact Us</a></li>
+            </ul>
+        </nav>
+         <a href="signin.html" class="button-link">
+             <button class="sign-in-btn">Sign In</button>
+         </a>
+    </header>
+
+    <main>
+        <h1 class="main-heading">Get in Touch.</h1>
+
+        <section class="contact-content">
+            <form class="contact-form" action="#" method="post"> <div class="input-group">
+                    <input type="text" id="first-name" name="first-name" placeholder="First Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="last-name" name="last-name" placeholder="Last Name" required>
+                </div>
+                <div class="input-group full-width">
+                    <input type="email" id="email" name="email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group full-width">
+                    <textarea id="message" name="message" placeholder="Message" required></textarea>
+                </div>
+                <div class="full-width">
+                     <button type="submit" class="submit-btn">Submit</button>
+                </div>
+            </form>
+
+            <div class="contact-details">
+                <h2>Contact Us</h2>
+                <p>Whether you have questions about our services, need support, or want to share your feedback, our dedicated team is here to assist you every step of the way.</p>
+
+                <div class="contact-method">
+                    <i class="fas fa-envelope"></i> <div>
+                        <span>Email</span>
+                        <a href="mailto:ApexGames@gmail.com">ApexGames@gmail.com</a> </div>
+                </div>
+
+                 <div class="contact-method">
+                     <i class="fab fa-discord"></i> <div>
+                         <span>Discord</span>
+                         <a href="#" target="_blank">ApexGames#discord</a> </div>
+                </div>
+
+                <div class="contact-method">
+                     <i class="fas fa-phone"></i> <div>
+                         <span>Phone</span>
+                         <span class="detail">+123-456-7890</span> </div>
+                </div>
+
+                <div class="contact-method">
+                     <i class="fab fa-twitter"></i> <div>
+                         <span>Twitter</span>
+                         <a href="https://twitter.com/ApexGamesXcom" target="_blank">https://ApexGamesXcom</a> </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

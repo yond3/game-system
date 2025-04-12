@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - APEX Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Basic Reset & Body Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif; /* Fallback font */
+            font-family: 'Orbitron', sans-serif; /* Futuristic font */
+            color: #fff;
+            background-color: #0a0a1a; /* Dark blue/purple background */
+            position: relative;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            min-height: 100vh; /* Ensure background covers full height */
+        }
+
+        /* Background Image and Overlay */
+        .background-image {
+            position: fixed; /* Or absolute if preferred */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh; /* Cover full viewport height */
+            /* IMPORTANT: Replace 'placeholder-about-background.jpg' with your actual image file */
+            background: url('placeholder-about-background.jpg') no-repeat center center/cover;
+            z-index: -2;
+            opacity: 0.5; /* Adjust opacity */
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+             /* Adjust gradient if needed, maybe slightly darker */
+            background: linear-gradient(to bottom, rgba(10, 10, 26, 0.6), rgba(10, 10, 26, 1) 70%);
+            z-index: -1;
+        }
+
+
+        /* Header Styling */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #e0e0ff; /* Light purple/white */
+            text-shadow: 0 0 5px #cc00ff, 0 0 10px #cc00ff; /* Neon glow */
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #b0b0ff; /* Lighter text color */
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s, text-shadow 0.3s;
+        }
+
+         /* Style for the ACTIVE page link */
+        nav ul li a.active,
+        nav ul li a:hover { /* Hover effect remains the same */
+            color: #fff;
+            background-color: rgba(204, 0, 255, 0.3); /* Semi-transparent neon purple */
+            text-shadow: 0 0 8px #fff;
+        }
+
+         /* Style for the link wrapping the button */
+         header a.button-link {
+             text-decoration: none;
+        }
+
+        .sign-in-btn {
+            padding: 10px 25px;
+            background-color: #8A2BE2; /* BlueViolet */
+            border: 1px solid #cc00ff;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 20px; /* Rounded corners */
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 5px #cc00ff, inset 0 0 5px rgba(255, 255, 255, 0.3);
+            display: inline-block; /* Ensure button behaves correctly inside link */
+        }
+
+        .sign-in-btn:hover {
+            background-color: #9932CC; /* Darker Orchid */
+            box-shadow: 0 0 15px #cc00ff, inset 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Main Content Styling for About Page */
+        main {
+            padding: 50px 5%; /* Add more top padding */
+            position: relative;
+            z-index: 5;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center; /* Vertically align items */
+            gap: 40px; /* Space between image and text */
+            background-color: rgba(15, 15, 30, 0.4); /* Optional: Slight background tint for content area */
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .about-image-container {
+            flex-basis: 35%; /* Adjust width of image column */
+            max-width: 300px; /* Max width for the image box */
+            padding: 15px; /* Padding inside the border */
+            border: 2px solid #8A2BE2; /* Neon purple border */
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.3); /* Darker inner background */
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.7); /* Neon glow effect */
+        }
+
+        .about-image-container img {
+            display: block; /* Remove extra space below image */
+            width: 100%; /* Make image fill container */
+            height: auto;
+            border-radius: 4px; /* Slight rounding if needed */
+        }
+
+        .about-text-container {
+            flex-basis: 65%; /* Adjust width of text column */
+        }
+
+        .about-text-container p {
+            font-size: 1.1em; /* Adjust font size */
+            line-height: 1.7;
+            color: #d0d0f0; /* Slightly brighter text color */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Subtle text shadow for readability */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+            }
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+            }
+             nav ul li {
+                margin: 0 10px; /* Reduce margin */
+            }
+             /* Ensure sign-in button link is centered too */
+             header a.button-link {
+                 margin-top: 10px;
+            }
+            .about-content {
+                flex-direction: column; /* Stack image and text vertically */
+                padding: 20px;
+            }
+            .about-image-container {
+                max-width: 250px; /* Adjust max width for smaller screens */
+                margin-bottom: 30px; /* Add space below image */
+            }
+             .about-text-container {
+                flex-basis: 100%; /* Text takes full width */
+                text-align: center; /* Center text */
+            }
+             .about-text-container p {
+                font-size: 1em; /* Adjust font size */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="background-image"></div>
+    <div class="overlay"></div>
+
+    <header>
+        <div class="logo">APEX Games</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+        <a href="signin.html" class="button-link">
+            <button class="sign-in-btn">Sign In</button>
+        </a>
+    </header>
+
+    <main>
+        <section class="about-content">
+            <div class="about-image-container">
+                 <img src="placeholder-about-logo.png" alt="Apex Games Logo">
+            </div>
+            <div class="about-text-container">
+                <p>
+                    "APEXGAMES is a dynamic force in the gaming industry, dedicated to creating simple yet deeply rewarding gaming experiences. We develop accessible games that appeal to players, ensuring that ease of play doesn't compromise the thrill of substantial rewards. Our mission is to bridge the gap between casual gaming and high-stakes excitement, offering engaging gameplay with significant payoffs. We strive to provide a gaming environment where everyone can experience the joy of victory, regardless of their skill level."
+                </p>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

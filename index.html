@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEX Games - Bug Hunter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Basic Reset & Body Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif; /* Fallback font */
+            font-family: 'Orbitron', sans-serif; /* Futuristic font */
+            color: #fff;
+            background-color: #0a0a1a; /* Dark blue/purple background */
+            position: relative;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Background Image and Overlay */
+        .background-image {
+            position: fixed; /* Or absolute if preferred */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50vh; /* Adjust height as needed */
+            /* IMPORTANT: Replace 'placeholder-background.jpg' with your actual image file */
+            background: url('placeholder-background.jpg') no-repeat center center/cover;
+            z-index: -2;
+            opacity: 0.6; /* Adjust opacity */
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(10, 10, 26, 0.5), rgba(10, 10, 26, 1) 60%); /* Gradient overlay */
+            z-index: -1;
+        }
+
+
+        /* Header Styling */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #e0e0ff; /* Light purple/white */
+            text-shadow: 0 0 5px #cc00ff, 0 0 10px #cc00ff; /* Neon glow */
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #b0b0ff; /* Lighter text color */
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s, text-shadow 0.3s;
+        }
+
+        nav ul li a.active,
+        nav ul li a:hover {
+            color: #fff;
+            background-color: rgba(204, 0, 255, 0.3); /* Semi-transparent neon purple */
+            text-shadow: 0 0 8px #fff;
+        }
+
+        /* Style for the link wrapping the button */
+        header a.button-link {
+             text-decoration: none;
+        }
+
+        .sign-in-btn {
+            padding: 10px 25px;
+            background-color: #8A2BE2; /* BlueViolet */
+            border: 1px solid #cc00ff;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 20px; /* Rounded corners */
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 5px #cc00ff, inset 0 0 5px rgba(255, 255, 255, 0.3);
+            display: inline-block; /* Ensure button behaves correctly inside link */
+        }
+
+        .sign-in-btn:hover {
+            background-color: #9932CC; /* Darker Orchid */
+            box-shadow: 0 0 15px #cc00ff, inset 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Main Content Styling */
+        main {
+            padding: 0 5%;
+            position: relative;
+            z-index: 5;
+        }
+
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 50vh; /* Adjust as needed */
+            margin-top: 20px;
+        }
+
+        .hero-text {
+            flex-basis: 50%;
+            max-width: 500px;
+        }
+
+        .title-box {
+            background-color: rgba(30, 30, 50, 0.7); /* Semi-transparent dark background */
+            border: 1px solid #8A2BE2; /* Neon border */
+            padding: 15px 30px;
+            margin-bottom: 15px;
+            display: inline-block; /* Make boxes wrap content */
+            width: 70%; /* Adjust width */
+            font-size: 3.5em; /* Large font size */
+            font-weight: bold;
+            color: #f0f0ff;
+            text-shadow: 0 0 8px #cc00ff;
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%); /* Angled edge */
+        }
+
+        .hero-text p {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: #c0c0f0; /* Lighter text color */
+            max-width: 450px; /* Limit width */
+        }
+
+        .play-now-btn {
+            padding: 15px 35px;
+            background-color: #cc00ff; /* Bright Neon Purple */
+            border: 1px solid #e0e0ff;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px; /* Slightly rounded corners */
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 10px #cc00ff, inset 0 0 8px rgba(255, 255, 255, 0.4);
+            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%); /* Angled edges */
+        }
+
+        .play-now-btn:hover {
+            background-color: #e600ff; /* Brighter purple */
+            box-shadow: 0 0 20px #e600ff, inset 0 0 10px rgba(255, 255, 255, 0.6);
+        }
+
+
+        .hero-image {
+            flex-basis: 45%;
+            text-align: center; /* Center the image if needed */
+        }
+
+        .hero-image img {
+            max-width: 80%; /* Adjust size as needed */
+            height: auto;
+            opacity: 0.9; /* Slight transparency */
+             /* Add filter for effects if desired: filter: brightness(0.9) contrast(1.1); */
+        }
+
+        /* Card Section Styling */
+        .card-section {
+            display: flex;
+            justify-content: space-around; /* Or space-between */
+            margin-top: 50px;
+            padding-bottom: 50px;
+            gap: 20px; /* Space between cards */
+        }
+
+        .card {
+            background-color: rgba(40, 40, 60, 0.6); /* Semi-transparent card background */
+            border: 1px solid #8A2BE2; /* Neon border */
+            border-radius: 8px;
+            overflow: hidden; /* Ensure image stays within borders */
+            flex-basis: 30%; /* Adjust based on number of cards */
+            max-width: 200px; /* Max width for cards */
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card img {
+            display: block;
+            width: 100%;
+            height: auto;
+            opacity: 0.8;
+        }
+
+        .card:hover {
+            transform: translateY(-5px); /* Slight lift on hover */
+            box-shadow: 0 0 15px #cc00ff;
+        }
+
+        /* Add Media Queries for Responsiveness if needed */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+            }
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+            }
+            nav ul li {
+                margin: 0 15px;
+            }
+            /* Ensure sign-in button link is centered too */
+            header a.button-link {
+                 margin-top: 10px;
+            }
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-text {
+                max-width: 100%;
+                margin-bottom: 30px;
+            }
+             .title-box {
+                width: 90%; /* Adjust for smaller screens */
+                font-size: 2.5em;
+            }
+            .hero-image {
+                margin-top: 30px;
+            }
+            .card-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            .card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-image"></div>
+    <div class="overlay"></div>
+
+    <header>
+        <div class="logo">APEX Games</div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+        <a href="signin.html" class="button-link">
+            <button class="sign-in-btn">Sign In</button>
+        </a>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <div class="title-box">BUG</div>
+                <div class="title-box">HUNTER</div>
+                <p>Bug Hunter: Code against the clock! Find and fix critical errors before the system--and you--crash. Every bug fixed buys you time, but one missed error could be fatal. Are you fast enough to survive?</p>
+                <button class="play-now-btn">PLAY NOW!</button>
+            </div>
+            <div class="hero-image">
+                 <img src="placeholder-character.png" alt="Character">
+            </div>
+        </section>
+
+        
+    </main>
+
+</body>
+</html>
